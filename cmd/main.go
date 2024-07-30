@@ -61,7 +61,7 @@ func main() {
 				fmt.Print("_ ")
 				continue
 			} else if boardPlayer1[i][j] == "X" {
-				hit1++
+				hit2++
 			}
 			fmt.Printf("%v ", boardPlayer1[i][j])
 		}
@@ -75,7 +75,7 @@ func main() {
 				fmt.Print("_ ")
 				continue
 			} else if boardPlayer2[i][j] == "X" {
-				hit2++
+				hit1++
 			}
 			fmt.Printf("%v ", boardPlayer2[i][j])
 		}
