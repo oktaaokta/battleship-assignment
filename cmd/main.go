@@ -47,10 +47,28 @@ func main() {
 		}
 	}
 
-	fmt.Println("Player1")
+	outputFile, err := os.Create("../output/output.txt")
+	if err != nil {
+		fmt.Println("Error creating file:", err)
+		return
+	}
+	defer outputFile.Close()
+
+	writer := bufio.NewWriter(outputFile)
+
+	_, err = writer.WriteString("Player1" + "\n")
+	if err != nil {
+		fmt.Println("Error writing to file:", err)
+		return
+	}
 	for i := 0; i < len(boardPlayer1.GameBoard); i++ {
 		for j := 0; j < len(boardPlayer1.GameBoard[0]); j++ {
 			fmt.Printf("%v ", string(boardPlayer1.GameBoard[i][j]))
+			_, err = writer.WriteString(fmt.Sprintf("%v ", string(boardPlayer1.GameBoard[i][j])))
+			if err != nil {
+				fmt.Println("Error writing to file:", err)
+				return
+			}
 		}
 		fmt.Print("\n")
 	}
@@ -59,7 +77,18 @@ func main() {
 	for i := 0; i < len(boardPlayer2.GameBoard); i++ {
 		for j := 0; j < len(boardPlayer2.GameBoard[0]); j++ {
 			fmt.Printf("%v ", string(boardPlayer2.GameBoard[i][j]))
+			_, err = writer.WriteString(fmt.Sprintf("%v ", string(boardPlayer2.GameBoard[i][j])))
+			if err != nil {
+				fmt.Println("Error writing to file:", err)
+				return
+			}
 		}
 		fmt.Print("\n")
+	}
+
+	err = writer.Flush()
+	if err != nil {
+		fmt.Println("Error flushing buffer:", err)
+		return
 	}
 }
