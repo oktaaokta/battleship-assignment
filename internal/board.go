@@ -5,26 +5,32 @@ import (
 	"strings"
 )
 
-func CreateBoard(gridSize int) [][]string {
-	board := make([][]string, gridSize)
-	for i := range board {
-		board[i] = make([]string, gridSize)
+func (board *Board) CreateBoard(gridSize int) {
+	gameBoard := make([][]byte, gridSize)
+	for i := range gameBoard {
+		gameBoard[i] = make([]byte, gridSize)
+		for j := range gameBoard[i] {
+			gameBoard[i][j] = '_'
+		}
 	}
-
-	return board
+	board.GameBoard = gameBoard
 }
 
-func InitializeShips(board [][]string, positions string) [][]string {
+func (board *Board) InitShips(ships int) {
+	board.AvailableShips = ships
+}
+
+func (board *Board) PlaceShips(positions string) {
+	gameBoard := board.GameBoard
 	positionsList := strings.Split(positions, ":")
 
 	for i := range positionsList {
 		grids := strings.Split(positionsList[i], ",")
 		row, _ := strconv.ParseInt(grids[0], 10, 64)
 		col, _ := strconv.ParseInt(grids[1], 10, 64)
-		board[row][col] = "B"
+		gameBoard[row][col] = '_'
 	}
 
-	return board
 }
 
 func PlaceMissiles(board [][]string, positions string) [][]string {

@@ -1,5 +1,6 @@
 package internal
 
 type Board struct {
-	mapBoard [][]string
+	GameBoard      [][]byte
+	AvailableShips int
 }
