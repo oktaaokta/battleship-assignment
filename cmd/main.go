@@ -25,9 +25,9 @@ func main() {
 	line := scanner.Text()
 	size, _ := strconv.Atoi(line)
 
-	boardPlayer1 := internal.Board{}
+	boardPlayer1 := internal.NewBoard()
 	boardPlayer1.CreateBoard(int(size))
-	boardPlayer2 := internal.Board{}
+	boardPlayer2 := internal.NewBoard()
 	boardPlayer2.CreateBoard(int(size))
 
 	//move to next line

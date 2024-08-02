@@ -5,6 +5,12 @@ import (
 	"strings"
 )
 
+func NewBoard() *Board {
+	return &Board{
+		GameBoard: [][]byte{},
+	}
+}
+
 func (board *Board) CreateBoard(gridSize int) {
 	gameBoard := make([][]byte, gridSize)
 	for i := range gameBoard {
