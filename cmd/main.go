@@ -37,6 +37,16 @@ func main() {
 	boardPlayer1.InitShips(availableShips)
 	boardPlayer2.InitShips(availableShips)
 
+	for i := 0; i < 2; i++ {
+		scanner.Scan()
+		line := scanner.Text()
+		if i == 0 {
+			boardPlayer1.PlaceShips(line)
+		} else {
+			boardPlayer2.PlaceShips(line)
+		}
+	}
+
 	fmt.Println("Player1")
 	for i := 0; i < len(boardPlayer1.GameBoard); i++ {
 		for j := 0; j < len(boardPlayer1.GameBoard[0]); j++ {
