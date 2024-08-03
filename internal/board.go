@@ -26,6 +26,10 @@ func (board *Board) InitShips(ships int) {
 	board.AvailableShips = ships
 }
 
+func (board *Board) InitMissiles(missiles int) {
+	board.TotalMissiles = missiles
+}
+
 func (board *Board) PlaceShips(positions string) {
 	gameBoard := board.GameBoard
 	positionsList := strings.Split(positions, ":")
@@ -34,12 +38,11 @@ func (board *Board) PlaceShips(positions string) {
 		grids := strings.Split(positionsList[i], ",")
 		row, _ := strconv.ParseInt(grids[0], 10, 64)
 		col, _ := strconv.ParseInt(grids[1], 10, 64)
-		gameBoard[row][col] = '_'
+		gameBoard[row][col] = 'B'
 	}
-
 }
 
-func PlaceMissiles(board [][]string, positions string) [][]string {
+func (board *Board) PlaceMissiles(positions string) {
 	positionsList := strings.Split(positions, ":")
 
 	for i := range positionsList {
@@ -47,12 +50,11 @@ func PlaceMissiles(board [][]string, positions string) [][]string {
 		row, _ := strconv.ParseInt(grids[0], 10, 64)
 		col, _ := strconv.ParseInt(grids[1], 10, 64)
 
-		if board[row][col] == "B" {
-			board[row][col] = "X"
+		if board.GameBoard[row][col] == 'B' {
+			board.GameBoard[row][col] = 'X'
+			board.AvailableShips--
 		} else {
-			board[row][col] = "O"
+			board.GameBoard[row][col] = 'O'
 		}
 	}
-
-	return board
 }

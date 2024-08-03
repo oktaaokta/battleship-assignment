@@ -47,6 +47,22 @@ func main() {
 		}
 	}
 
+	scanner.Scan()
+	line = scanner.Text()
+	totalMissiles, _ := strconv.Atoi(line)
+	boardPlayer1.InitMissiles(totalMissiles)
+	boardPlayer2.InitMissiles(totalMissiles)
+
+	for i := 0; i < 2; i++ {
+		scanner.Scan()
+		line := scanner.Text()
+		if i == 0 {
+			boardPlayer1.PlaceMissiles(line)
+		} else {
+			boardPlayer2.PlaceMissiles(line)
+		}
+	}
+
 	outputFile, err := os.Create("../output/output.txt")
 	if err != nil {
 		fmt.Println("Error creating file:", err)
@@ -63,27 +79,37 @@ func main() {
 	}
 	for i := 0; i < len(boardPlayer1.GameBoard); i++ {
 		for j := 0; j < len(boardPlayer1.GameBoard[0]); j++ {
-			fmt.Printf("%v ", string(boardPlayer1.GameBoard[i][j]))
 			_, err = writer.WriteString(fmt.Sprintf("%v ", string(boardPlayer1.GameBoard[i][j])))
 			if err != nil {
 				fmt.Println("Error writing to file:", err)
 				return
 			}
 		}
-		fmt.Print("\n")
+		_, err = writer.WriteString("\n")
+		if err != nil {
+			fmt.Println("Error writing to file:", err)
+			return
+		}
 	}
 
-	fmt.Println("Player2")
+	_, err = writer.WriteString("Player2" + "\n")
+	if err != nil {
+		fmt.Println("Error writing to file:", err)
+		return
+	}
 	for i := 0; i < len(boardPlayer2.GameBoard); i++ {
 		for j := 0; j < len(boardPlayer2.GameBoard[0]); j++ {
-			fmt.Printf("%v ", string(boardPlayer2.GameBoard[i][j]))
 			_, err = writer.WriteString(fmt.Sprintf("%v ", string(boardPlayer2.GameBoard[i][j])))
 			if err != nil {
 				fmt.Println("Error writing to file:", err)
 				return
 			}
 		}
-		fmt.Print("\n")
+		_, err = writer.WriteString("\n")
+		if err != nil {
+			fmt.Println("Error writing to file:", err)
+			return
+		}
 	}
 
 	err = writer.Flush()

@@ -1,0 +1,12 @@
+Player1
+_ O _ _ _ 
+_ B _ _ _ 
+B _ _ X _ 
+_ O _ _ B 
+_ O _ X _ 
+Player2
+O O B _ _ 
+_ O _ _ _ 
+_ _ _ X _ 
+B _ _ _ B 
+_ B _ O _ 
