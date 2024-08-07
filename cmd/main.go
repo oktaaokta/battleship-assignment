@@ -57,9 +57,9 @@ func main() {
 		scanner.Scan()
 		line := scanner.Text()
 		if i == 0 {
-			boardPlayer1.PlaceMissiles(line)
+			boardPlayer1.PlaceMissiles(line, boardPlayer2)
 		} else {
-			boardPlayer2.PlaceMissiles(line)
+			boardPlayer2.PlaceMissiles(line, boardPlayer1)
 		}
 	}
 
@@ -110,6 +110,32 @@ func main() {
 			fmt.Println("Error writing to file:", err)
 			return
 		}
+	}
+
+	_, err = writer.WriteString(fmt.Sprintf("\nP1:%v \n", boardPlayer2.TotalMissiles-boardPlayer2.AvailableShips))
+	if err != nil {
+		fmt.Println("Error writing to file:", err)
+		return
+	}
+
+	_, err = writer.WriteString(fmt.Sprintf("P2:%v \n", boardPlayer1.TotalMissiles-boardPlayer1.AvailableShips))
+	if err != nil {
+		fmt.Println("Error writing to file:", err)
+		return
+	}
+
+	var text string
+	if boardPlayer1.AvailableShips > boardPlayer2.AvailableShips {
+		text = "Player 1 Wins"
+	} else if boardPlayer1.AvailableShips < boardPlayer2.AvailableShips {
+		text = "Player 2 Wins"
+	} else {
+		text = "It is a draw"
+	}
+	_, err = writer.WriteString(text)
+	if err != nil {
+		fmt.Println("Error writing to file:", err)
+		return
 	}
 
 	err = writer.Flush()
